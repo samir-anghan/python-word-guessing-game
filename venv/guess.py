@@ -2,13 +2,24 @@ import game
 
 
 class Guess:
+    """
+    Represents the game.
+    """
 
     def __init__(self):
+        """
+        Constructs a new object and initializes the attributes of the class Guess.
+        """
         self.game = game.Game()
         self.gameList = []
         self.gameRoundsCounter = 0
 
     def main(self):
+        """
+        The entry point function into the game.
+        :return: None
+        :rtype: None
+        """
         self.gameList.append(game.Game(self.gameRoundsCounter))
         shouldContinue = True
 
@@ -39,6 +50,11 @@ class Guess:
                 print("@")
 
     def try_guess(self):
+        """
+        Asks to enter a guess word and verifies if it is a correct guess or not.
+        :return: None
+        :rtype: None
+        """
         guessInput = input("\nPlease enter guess:").lower()
 
         currentWordString = str(self.gameList[self.gameRoundsCounter].currentWord)
@@ -58,6 +74,11 @@ class Guess:
             print("@")
 
     def try_letter(self):
+        """
+        Asks a letter and verifies if the current word contains the letter or not.
+        :return: None
+        :rtype: None
+        """
         letter = input("\nEnter a letter:").lower()
 
         if len(letter) != 1:
@@ -104,13 +125,12 @@ class Guess:
             print("@ FEEDBACK: Oops! It wasn't a match. Try again.")
             print("@")
 
-
-
-
-
-            # print("Current Guess: %s" % self.gameList[self.gameRoundsCounter].currentGuess)
-
     def tell_me(self):
+        """
+        User gave up, and show the current word.
+        :return: None
+        :rtype: None
+        """
         self.gameList[self.gameRoundsCounter].didGaveUp = True
         self.gameList[self.gameRoundsCounter].didFinish = True
         print("\n@")
@@ -120,6 +140,11 @@ class Guess:
         self.start_new_game()
 
     def update_score(self):
+        """
+        Updates score and tracks the score.
+        :return: None
+        :rtype: None
+        """
         currentScore = float(self.gameList[self.gameRoundsCounter].score)
         incorrectGuesses = int(self.gameList[self.gameRoundsCounter].incorrectGuesses)
         turnOverLetters = int(self.gameList[self.gameRoundsCounter].turnOverLetters)
@@ -159,15 +184,34 @@ class Guess:
         self.gameList[self.gameRoundsCounter].score = currentScore
 
     def start_new_game(self):
+        """
+        Starts a new game.
+        :return: None
+        :rtype: None
+        """
         self.gameRoundsCounter += 1
         self.gameList.append(game.Game(self.gameRoundsCounter))
         print("\n")
         print(" Game ended, You are playing a new game. ".center(70, "*"))
 
     def find_occurrences(self, s, ch):
+        """
+        Find occurrences of the character in a given string.
+        :param s: String in which you want to find occurrences of the letter.
+        :type s: str
+        :param ch: The letter you want to find occurrences in a string.
+        :type ch: str
+        :return: List of the occurrences index.
+        :rtype: List
+        """
         return [i for i, letter in enumerate(s) if letter == ch]
 
     def print_report(self):
+        """
+        Prints score report.
+        :return: None
+        :rtype: None
+        """
         finalScore = 0.0
         gameIndex = 0
         didFinish = bool(self.gameList[gameIndex].didFinish)

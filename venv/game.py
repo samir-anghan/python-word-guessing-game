@@ -3,7 +3,9 @@ import random
 
 
 class Game:
-
+    """
+    Encapsulates game data and maintain information about specific game.
+    """
     pointValuesForLettersDictionary = {
         "a": 8.17,
         "b": 1.49,
@@ -34,6 +36,11 @@ class Game:
     }
 
     def __init__(self, gameId = None):
+        """
+        Constructs a new object and initializes the attributes of the class Game.
+        :param gameId: Game id.
+        :type gameId: Any
+        """
         self.stringDatabaseObj = stringDatabase.StringDatabase('four_letters.txt')
         self.gameId = gameId
         self.currentWord = self.pick_random_word()
@@ -48,4 +55,9 @@ class Game:
         self.score = 0.0
 
     def pick_random_word(self):
+        """
+        Picks random word from the words list.
+        :return: Random word from the words list.
+        :rtype: str
+        """
         return random.choice(self.stringDatabaseObj.wordsList)
