@@ -61,3 +61,4 @@ class Game:
         :rtype: str
         """
         return random.choice(self.stringDatabaseObj.wordsList)
+

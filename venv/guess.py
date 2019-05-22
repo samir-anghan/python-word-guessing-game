@@ -26,7 +26,6 @@ class Guess:
         print("** The great guessing game **")
 
         while shouldContinue:
-            print("\nCurrent word: %s" % self.gameList[self.gameRoundsCounter].currentWord)
             print("\nCurrent Guess: %s" % self.gameList[self.gameRoundsCounter].currentGuess)
             action = input("\ng = guess, t = tell me, l for a letter, and q to quit").lower()
 
@@ -43,11 +42,15 @@ class Guess:
             elif action == 'l':
                 self.try_letter()
             elif action == 'q':
-                shouldContinue = False
-                self.print_report()
                 print("\n@")
-                print("@ FEEDBACK: Bye-bye! Thank you for playing the game!")
+                wantToQuit = input("Are you sure you want to quit?(y/n)").lower()
                 print("@")
+                if wantToQuit == "y":
+                    shouldContinue = False
+                    self.print_report()
+                    print("\n@")
+                    print("@ FEEDBACK: Bye-bye! Thank you for playing the game!")
+                    print("@")
 
     def try_guess(self):
         """
@@ -163,6 +166,14 @@ class Guess:
                     currentScore += pointValueForChar
                 charIndex += 1
 
+            if turnOverLetters > 0:
+                currentScore = currentScore / turnOverLetters
+
+            if incorrectGuesses > 0:
+                while incorrectGuesses > 0:
+                    currentScore = currentScore - (currentScore * 0.10)
+                    incorrectGuesses -= 1
+
         if didGaveUp:
             charIndex = 0
             pointValuesForLettersDictionary = game.Game.pointValuesForLettersDictionary
@@ -172,14 +183,6 @@ class Guess:
                     pointValueForChar = pointValuesForLettersDictionary.get(charFromWord)
                     currentScore -= pointValueForChar
                 charIndex += 1
-
-        if turnOverLetters > 0:
-            currentScore = currentScore / turnOverLetters
-
-        if incorrectGuesses > 0:
-            while incorrectGuesses > 0:
-                currentScore = currentScore - (currentScore * 0.10)
-                incorrectGuesses -= 1
 
         self.gameList[self.gameRoundsCounter].score = currentScore
 
@@ -219,6 +222,9 @@ class Guess:
         if not didFinish:
             return
 
+        print("\n@")
+        print("@ Game Report:")
+        print("@")
         print("\n")
         print("Game".ljust(8, " ") + "Word".ljust(8, " ") + "Status".ljust(11, " ") + "Bad Guesses".ljust(15, " ") + "Missed Letters".ljust(18, " ") + "Score".ljust(8, " "))
         print("----".ljust(8, " ") + "----".ljust(8, " ") + "------".ljust(11, " ") + "-----------".ljust(15, " ") + "---------------".ljust(18, " ") + "-----".ljust(8, " "))
@@ -236,7 +242,6 @@ class Guess:
             missedLetters = str(self.gameList[gameIndex].missedLetters)
             scoreFloat = float(self.gameList[gameIndex].score)
             score = "{0:.2f}".format(scoreFloat)
-            # score = str(self.gameList[gameIndex].score)
             didFinish = bool(self.gameList[gameIndex].didFinish)
             if didFinish:
                 print(gameNumber.ljust(8, " ") + word.ljust(8, " ") + status.ljust(11, " ") + badGuesses.ljust(15, " ") + missedLetters.ljust(18, " ") + score.ljust(8, " "))
