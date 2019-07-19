@@ -1,6 +1,6 @@
 # ** The word guessing game ** using Python
 
-##DESCRIPTION: 
+## DESCRIPTION: 
 In	this	assignment, you	will	have	a	chance	to	gain	experience	with	the	Python	
 programming	language.	Python	is	an	easy	to	use,	dynamically	type	Object	Oriented	language.	It is	
 syntactically	similar	to	C-style	languages	like	C++,	C#	and	Java,	but	is	somewhat	simpler	to	
